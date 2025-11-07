@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { ProductCategory, ProductStatus } from '../../../generated/prisma';
+import { ProductCategory, ProductStatus } from '@prisma/client';
 
 // GET /api/products - 제품 목록 조회 (필터링, 페이지네이션 포함)
 export async function GET(request: NextRequest) {
