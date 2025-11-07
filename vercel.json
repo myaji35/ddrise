@@ -4,5 +4,10 @@
   "devCommand": "pnpm dev",
   "installCommand": "pnpm install --ignore-scripts=false",
   "framework": "nextjs",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "build": {
+    "env": {
+      "DATABASE_URL": "file:./dev.db"
+    }
+  }
 }
