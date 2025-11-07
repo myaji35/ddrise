@@ -30,6 +30,9 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default async function LocaleLayout({
   children,
   params,
