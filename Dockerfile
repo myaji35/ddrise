@@ -24,6 +24,7 @@ COPY apps/web/ apps/web/
 
 # Generate Prisma client
 WORKDIR /app/apps/web
+ENV DATABASE_URL="file:./dev.db"
 RUN pnpm exec prisma generate
 
 # Build the web application
@@ -32,28 +33,28 @@ RUN pnpm build
 # Production stage
 FROM node:20-alpine AS runner
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
 WORKDIR /app
 
 # Set production environment
 ENV NODE_ENV=production
+ENV PORT=8080
+ENV HOSTNAME="0.0.0.0"
 
-# Copy necessary files from builder
-COPY --from=builder /app/apps/web/public ./public
+# Copy public folder
+COPY --from=builder /app/apps/web/public ./apps/web/public
+
+# Copy standalone output
 COPY --from=builder /app/apps/web/.next/standalone ./
+
+# Copy static files
 COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=builder /app/apps/web/prisma ./apps/web/prisma
+
+# Copy Prisma files
 COPY --from=builder /app/apps/web/node_modules/.prisma ./apps/web/node_modules/.prisma
+COPY --from=builder /app/apps/web/prisma ./apps/web/prisma
 
 # Expose port
 EXPOSE 8080
 
-# Set environment variable for port
-ENV PORT=8080
-ENV HOSTNAME="0.0.0.0"
-
 # Start the application
-WORKDIR /app/apps/web
-CMD ["node", "server.js"]
+CMD ["node", "apps/web/server.js"]

@@ -1,0 +1,33 @@
+steps:
+  # Install pnpm
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install', '-g', 'pnpm@latest']
+
+  # Install dependencies from monorepo root
+  - name: 'gcr.io/cloud-builders/npm'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd ../..
+        pnpm install --frozen-lockfile
+
+  # Generate Prisma client
+  - name: 'gcr.io/cloud-builders/npm'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pnpm exec prisma generate
+
+  # Build the application
+  - name: 'gcr.io/cloud-builders/npm'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pnpm build
+
+# Deploy to App Engine
+options:
+  logging: CLOUD_LOGGING_ONLY

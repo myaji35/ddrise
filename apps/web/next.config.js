@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@daedong/ui', '@daedong/shared'],
-  // output: 'standalone' is not needed for Vercel deployment
+  output: 'standalone', // Required for Docker/GCP Cloud Run deployment
   images: {
     remotePatterns: [
       {
