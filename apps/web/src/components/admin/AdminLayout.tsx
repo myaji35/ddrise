@@ -22,9 +22,9 @@ interface AdminLayoutProps {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { name: 'Leads', href: '/admin/leads', icon: Users },
-  { name: 'Quotes', href: '/admin/quotes', icon: FileText },
+  { name: '대시보드', href: '/admin', icon: LayoutDashboard },
+  { name: '리드 관리', href: '/admin/leads', icon: Users },
+  { name: '견적 관리', href: '/admin/quotes', icon: FileText },
 ];
 
 export function AdminLayout({ children, locale }: AdminLayoutProps) {
@@ -53,7 +53,7 @@ export function AdminLayout({ children, locale }: AdminLayoutProps) {
           <div className="flex items-center justify-between h-16 px-6 border-b border-slate-200">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg" />
-              <span className="font-bold text-lg">Admin</span>
+              <span className="font-bold text-lg">관리자</span>
             </div>
             <Button
               variant="ghost"
@@ -97,7 +97,7 @@ export function AdminLayout({ children, locale }: AdminLayoutProps) {
               className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors"
             >
               <LogOut className="h-5 w-5" />
-              Back to Site
+              사이트로 돌아가기
             </Link>
           </div>
         </div>
@@ -118,7 +118,7 @@ export function AdminLayout({ children, locale }: AdminLayoutProps) {
 
           <div className="flex-1">
             <h1 className="text-xl font-semibold text-slate-900">
-              Admin Dashboard
+              관리자 대시보드
             </h1>
           </div>
         </header>

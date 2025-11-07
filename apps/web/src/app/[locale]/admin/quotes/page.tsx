@@ -42,15 +42,15 @@ export default async function AdminQuotesPage({
         {/* Page header */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900">Quote Requests</h2>
+            <h2 className="text-2xl font-bold text-slate-900">견적 요청 관리</h2>
             <p className="text-slate-600 mt-1">
-              {quotes.length} quote{quotes.length !== 1 ? 's' : ''} requested
+              총 {quotes.length}개의 견적이 요청되었습니다
             </p>
           </div>
           <div className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-slate-400" />
             <span className="text-sm font-medium text-slate-600">
-              Total: {quotes.length}
+              전체: {quotes.length}
             </span>
           </div>
         </div>
@@ -108,7 +108,7 @@ export default async function AdminQuotesPage({
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-indigo-600 font-medium mb-1">
-                            ESTIMATED PRICE
+                            예상 가격
                           </p>
                           <p className="text-2xl font-bold text-indigo-900">
                             ${avgPrice.toLocaleString()}
@@ -127,7 +127,7 @@ export default async function AdminQuotesPage({
                   {recommendations.length > 0 && (
                     <div className="mb-4">
                       <p className="text-xs font-semibold text-slate-600 mb-2">
-                        AI RECOMMENDATIONS:
+                        AI 추천 제품:
                       </p>
                       <ul className="space-y-1">
                         {recommendations.slice(0, 3).map((rec, idx) => (
@@ -144,7 +144,7 @@ export default async function AdminQuotesPage({
                   {quote.requirements && (
                     <div className="mb-4">
                       <p className="text-xs font-semibold text-slate-600 mb-1">
-                        REQUIREMENTS:
+                        추가 요구사항:
                       </p>
                       <p className="text-sm text-slate-700 line-clamp-2">
                         {quote.requirements}
@@ -195,10 +195,10 @@ export default async function AdminQuotesPage({
           <div className="bg-white rounded-lg border border-slate-200 p-12 text-center">
             <FileText className="h-12 w-12 text-slate-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              No quote requests yet
+              아직 견적 요청이 없습니다
             </h3>
             <p className="text-slate-600">
-              Quote requests will appear here when customers use the AI Quote form.
+              고객이 AI 견적 폼을 사용하면 여기에 견적 요청이 표시됩니다.
             </p>
           </div>
         )}

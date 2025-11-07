@@ -51,15 +51,18 @@ export default async function AdminLeadsPage({
         {/* Page header */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900">Leads Management</h2>
+            <div className="flex items-baseline gap-3">
+              <h2 className="text-2xl font-bold text-slate-900">리드 관리</h2>
+              <span className="text-sm text-slate-400">잠재고객 정보</span>
+            </div>
             <p className="text-slate-600 mt-1">
-              {leads.length} lead{leads.length !== 1 ? 's' : ''} captured
+              총 {leads.length}개의 리드가 수집되었습니다
             </p>
           </div>
           <div className="flex items-center gap-2">
             <Users className="h-5 w-5 text-slate-400" />
             <span className="text-sm font-medium text-slate-600">
-              Total: {leads.length}
+              전체: {leads.length}
             </span>
           </div>
         </div>
@@ -72,25 +75,25 @@ export default async function AdminLeadsPage({
                 <thead className="bg-slate-50 border-b border-slate-200">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Lead Info
+                      리드 정보
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Contact
+                      연락처
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Type
+                      유형
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Priority
+                      우선순위
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Status
+                      상태
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Score
+                      점수
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">
-                      Date
+                      날짜
                     </th>
                   </tr>
                 </thead>
@@ -141,7 +144,7 @@ export default async function AdminLeadsPage({
                             </div>
                           )}
                           {!lead.email && !lead.phone && (
-                            <span className="text-sm text-slate-400">No contact</span>
+                            <span className="text-sm text-slate-400">연락처 없음</span>
                           )}
                         </div>
                       </td>
@@ -196,10 +199,10 @@ export default async function AdminLeadsPage({
           <div className="bg-white rounded-lg border border-slate-200 p-12 text-center">
             <Users className="h-12 w-12 text-slate-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              No leads yet
+              아직 리드가 없습니다
             </h3>
             <p className="text-slate-600">
-              Leads will appear here when visitors use the chatbot or contact form.
+              방문자가 챗봇이나 문의 폼을 사용하면 여기에 리드가 표시됩니다.
             </p>
           </div>
         )}

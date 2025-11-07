@@ -93,30 +93,30 @@ export default async function AdminDashboardPage({
 
   const statCards = [
     {
-      title: 'Total Leads',
+      title: '총 리드 수',
       value: stats.totalLeads,
-      change: `+${stats.todayLeads} today`,
+      change: `오늘 +${stats.todayLeads}`,
       icon: Users,
       color: 'text-blue-600 bg-blue-50',
     },
     {
-      title: 'Total Quotes',
+      title: '총 견적 수',
       value: stats.totalQuotes,
-      change: `+${stats.todayQuotes} today`,
+      change: `오늘 +${stats.todayQuotes}`,
       icon: FileText,
       color: 'text-green-600 bg-green-50',
     },
     {
-      title: 'Avg Quote Value',
+      title: '평균 견적 금액',
       value: `$${stats.avgQuoteAmount.toLocaleString()}`,
       change: 'USD',
       icon: DollarSign,
       color: 'text-purple-600 bg-purple-50',
     },
     {
-      title: 'Urgent Leads',
+      title: '긴급 리드',
       value: stats.urgentLeads.length,
-      change: 'Require attention',
+      change: '즉시 대응 필요',
       icon: AlertCircle,
       color: 'text-red-600 bg-red-50',
     },
@@ -127,9 +127,9 @@ export default async function AdminDashboardPage({
       <div className="space-y-6">
         {/* Page header */}
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">Dashboard Overview</h2>
+          <h2 className="text-2xl font-bold text-slate-900">대시보드 개요</h2>
           <p className="text-slate-600 mt-1">
-            Monitor your leads and quotes in real-time
+            리드와 견적을 실시간으로 모니터링하세요
           </p>
         </div>
 
@@ -165,7 +165,7 @@ export default async function AdminDashboardPage({
             <div className="flex items-center gap-2 mb-4">
               <AlertCircle className="h-5 w-5 text-red-600" />
               <h3 className="text-lg font-semibold text-slate-900">
-                Urgent Leads Requiring Attention
+                즉시 대응이 필요한 긴급 리드
               </h3>
             </div>
             <div className="space-y-3">
@@ -182,11 +182,11 @@ export default async function AdminDashboardPage({
                       )}
                     </p>
                     <p className="text-sm text-slate-600 mt-1">
-                      {lead.email || lead.phone || 'No contact info'}
+                      {lead.email || lead.phone || '연락처 정보 없음'}
                     </p>
                     <p className="text-xs text-slate-500 mt-1">
                       {lead.country && `📍 ${lead.country} • `}
-                      {lead.inquiryType && `Type: ${lead.inquiryType}`}
+                      {lead.inquiryType && `유형: ${lead.inquiryType}`}
                     </p>
                   </div>
                   <div className="flex flex-col items-end gap-1">
@@ -195,7 +195,7 @@ export default async function AdminDashboardPage({
                     </span>
                     {lead.aiScore && (
                       <span className="text-xs text-slate-500">
-                        Score: {lead.aiScore}
+                        점수: {lead.aiScore}
                       </span>
                     )}
                   </div>
@@ -210,10 +210,10 @@ export default async function AdminDashboardPage({
           <div className="bg-white rounded-lg border border-slate-200 p-12 text-center">
             <TrendingUp className="h-12 w-12 text-slate-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-slate-900 mb-2">
-              No data yet
+              아직 데이터가 없습니다
             </h3>
             <p className="text-slate-600">
-              Start capturing leads and quotes through your chatbot and quote form.
+              챗봇과 견적 폼을 통해 리드와 견적을 수집하기 시작하세요.
             </p>
           </div>
         )}
