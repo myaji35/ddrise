@@ -11,7 +11,7 @@ export function Header() {
   const t = useTranslations('common');
 
   const navItems = [
-    { href: '/', label: t('company_name') },
+    { href: '/', label: t('home') },
     { href: '/products', label: t('products') },
     { href: '/about', label: t('about') },
     { href: '/contact', label: t('contact') },
