@@ -2,11 +2,22 @@ import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 import type { NextRequest } from 'next/server';
 
+// Vercel geo extension for NextRequest
+interface NextRequestWithGeo extends NextRequest {
+  geo?: {
+    country?: string;
+    region?: string;
+    city?: string;
+    latitude?: string;
+    longitude?: string;
+  };
+}
+
 const handleI18nRouting = createMiddleware(routing);
 
 export default function middleware(request: NextRequest) {
-  // IP 기반 지역 감지
-  const country = request.geo?.country;
+  // IP 기반 지역 감지 (Vercel에서만 사용 가능)
+  const country = (request as NextRequestWithGeo).geo?.country;
 
   // 사용자가 이미 locale을 선택했는지 확인
   const hasLocaleInPath = routing.locales.some((locale) =>
