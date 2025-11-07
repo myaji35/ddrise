@@ -6,6 +6,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@daedong/ui', '@daedong/shared'],
+  output: 'standalone', // Enable standalone build for Docker
   images: {
     remotePatterns: [
       {
