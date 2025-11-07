@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { ChatbotWidget } from '@/components/chatbot/ChatbotWidget';
 import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -56,6 +57,7 @@ export default async function LocaleLayout({
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           {children}
+          <ChatbotWidget />
         </NextIntlClientProvider>
       </body>
     </html>

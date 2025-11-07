@@ -18,6 +18,8 @@ export function Header() {
     { href: '/', label: t('home') },
     { href: '/products', label: t('products') },
     { href: '/about', label: t('about') },
+    { href: '/global-business', label: t('global_business') },
+    { href: '/quote', label: 'AI Quote' },
     { href: '/contact', label: t('contact') },
   ];
 
