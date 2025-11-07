@@ -9,6 +9,9 @@ export const metadata = {
   description: 'Complete range of EXACT pipe cutting, beveling, and preparation tools. From 15mm to unlimited diameter.',
 };
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export default function ExactProductsPage() {
   return (
     <div className="min-h-screen bg-slate-50">
