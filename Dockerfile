@@ -15,6 +15,9 @@ COPY packages/shared/package.json packages/shared/
 COPY packages/ui/package.json packages/ui/
 COPY apps/web/package.json apps/web/
 
+# Set DATABASE_URL for Prisma during install
+ENV DATABASE_URL="file:./dev.db"
+
 # Install dependencies for entire monorepo
 RUN pnpm install --frozen-lockfile
 
@@ -24,7 +27,6 @@ COPY apps/web/ apps/web/
 
 # Generate Prisma client
 WORKDIR /app/apps/web
-ENV DATABASE_URL="file:./dev.db"
 RUN pnpm exec prisma generate
 
 # Build the web application
