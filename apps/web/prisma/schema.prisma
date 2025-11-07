@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Product Model - 제품 관리
+model Product {
+  id          String   @id @default(uuid())
+  sku         String   @unique // 제품 고유 번호
+
+  // 기본 정보 (한국어)
+  nameKo      String
+  descriptionKo String?
+
+  // 영어
+  nameEn      String
+  descriptionEn String?
+
+  // 아랍어
+  nameAr      String?
+  descriptionAr String?
+
+  // 카테고리 및 브랜드
+  category    ProductCategory
+  brand       String // 3M, DeWALT, Makita, Bosch, EXACT 등
+
+  // 가격 정보
+  price       Float?
+  currency    String @default("KRW")
+
+  // 재고 정보
+  stock       Int @default(0)
+  isAvailable Boolean @default(true)
+
+  // 이미지
+  images      String? // JSON string of image URLs
+  thumbnail   String?  // 대표 이미지
+
+  // 사양 (JSON 형태로 저장)
+  specifications String? // JSON string
+
+  // 상태
+  status      ProductStatus @default(ACTIVE)
+
+  // 메타데이터
+  tags        String? // JSON string of tags
+  featured    Boolean @default(false) // 추천 제품 여부
+
+  // 타임스탬프
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([brand])
+  @@index([status])
+}
+
+enum ProductCategory {
+  TAPE_ADHESIVE       // 3M 테이프 및 접착제
+  ABRASIVE            // 3M 연마재
+  SAFETY_EQUIPMENT    // 3M 안전보호구
+  PIPE_CUTTING        // EXACT 파이프 커팅
+  POWER_TOOLS         // 전동공구
+  INDUSTRIAL_FILM     // 산업용 필름
+  OTHER               // 기타
+}
+
+enum ProductStatus {
+  ACTIVE      // 활성
+  INACTIVE    // 비활성
+  OUT_OF_STOCK // 품절
+  DISCONTINUED // 단종
+}

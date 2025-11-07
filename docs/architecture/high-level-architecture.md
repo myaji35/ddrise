@@ -2,7 +2,7 @@
 
 ## Technical Summary
 
-The Daedong AI-Powered Business Portal is built as a **modern fullstack serverless application** with a **dual-track architecture**. The system leverages **Next.js 15 App Router** for a unified frontend and API layer, deployed on **Vercel** for automatic scaling and global edge distribution. The backend utilizes a **hybrid serverless approach** with Vercel Functions for API endpoints and **AWS Lambda** for long-running tasks like web scraping.
+The Daedong AI-Powered Business Portal is built as a **modern fullstack serverless application** with a **dual-track architecture**. The system leverages **Next.js 15 App Router** for a unified frontend and API layer, deployed on **Vercel** for automatic scaling and global edge distribution. The backend utilizes a **hybrid serverless approach** with Vercel Functions for API endpoints and **GCP Cloud Functions** for long-running tasks like web scraping.
 
 **Track A (B2B Web Portal)** provides AI-powered lead generation through real-time personalization and intelligent chatbots, while **Track B (E-commerce Monitoring Engine)** automates customer service and competitive analysis through scheduled scraping and AI analysis. Data persistence uses **PostgreSQL** (production) and **SQLite** (local development) via **Drizzle ORM**, with **Redis** for session and response caching. AI capabilities are powered by **OpenAI GPT-4 Turbo** with **Claude 3 Haiku** as fallback, orchestrated through **tRPC** for end-to-end type safety.
 
@@ -67,7 +67,7 @@ We evaluated three primary options:
 ```
 apps/
   web/              # Next.js 15 web application (Track A)
-  monitoring-bot/   # AWS Lambda scraping functions (Track B)
+  monitoring-bot/   # GCP Cloud Functions scraping functions (Track B)
 packages/
   shared/           # Shared TypeScript types, constants
   ui/               # Shared shadcn/ui components
@@ -96,11 +96,11 @@ graph TB
         Pinecone["Pinecone<br/>Vector DB"]
     end
 
-    subgraph AWS["AWS Services"]
-        Lambda["Lambda Functions<br/>(Monitoring Bot)"]
-        EventBridge["EventBridge<br/>(10min schedule)"]
-        RDS["RDS PostgreSQL"]
-        ElastiCache["ElastiCache<br/>Redis"]
+    subgraph GCP["GCP Services (Project: ddrise)"]
+        CloudFunctions["Cloud Functions<br/>(Monitoring Bot)"]
+        CloudScheduler["Cloud Scheduler<br/>(10min schedule)"]
+        CloudSQL["Cloud SQL<br/>PostgreSQL"]
+        Memorystore["Memorystore<br/>Redis"]
     end
 
     subgraph External["External Services"]
@@ -116,17 +116,17 @@ graph TB
     API --> OpenAI
     API --> Claude
     API --> Pinecone
-    API --> RDS
-    API --> ElastiCache
+    API --> CloudSQL
+    API --> Memorystore
 
-    EventBridge -->|Trigger| Lambda
-    Lambda -->|Scrape| Coupang
-    Lambda -->|Scrape| SmartStore
-    Lambda --> OpenAI
-    Lambda --> RDS
-    Lambda --> Slack
+    CloudScheduler -->|Trigger| CloudFunctions
+    CloudFunctions -->|Scrape| Coupang
+    CloudFunctions -->|Scrape| SmartStore
+    CloudFunctions --> OpenAI
+    CloudFunctions --> CloudSQL
+    CloudFunctions --> Slack
 
-    RDS -.->|Read Cache| ElastiCache
+    CloudSQL -.->|Read Cache| Memorystore
 ```
 
 ## Architectural Patterns
