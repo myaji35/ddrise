@@ -50,6 +50,9 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/(ko|en|ar)/:path*'],
+  // Match all pathnames except for
+  // - api routes
+  // - _next (Next.js internals)
+  // - static files (images, etc.)
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)'],
 };

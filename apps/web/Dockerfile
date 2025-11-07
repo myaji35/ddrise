@@ -1,63 +1,50 @@
-# Base image with Node.js
-FROM node:20-alpine AS base
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
+# Build stage
+FROM node:20-alpine AS builder
 
 # Install pnpm
-RUN npm install -g pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Dependencies stage
-FROM base AS deps
+WORKDIR /app
 
 # Copy package files
-COPY package.json pnpm-lock.yaml ./
-COPY prisma ./prisma
+COPY package.json pnpm-lock.yaml* ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Generate Prisma Client
-RUN pnpm prisma generate
-
-# Builder stage
-FROM base AS builder
-
-# Copy dependencies
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/generated ./generated
+# Copy source files
 COPY . .
 
+# Generate Prisma client
+RUN pnpm exec prisma generate
+
 # Build the application
-ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm build
 
-# Runner stage
-FROM base AS runner
+# Production stage  
+FROM node:20-alpine AS runner
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+WORKDIR /app
+
+# Set production environment
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
 
-# Create a non-root user
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Copy necessary files
+# Copy necessary files from builder
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/generated ./generated
-COPY --from=builder /app/messages ./messages
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
-# Create database directory
-RUN mkdir -p ./prisma && chown -R nextjs:nodejs ./prisma
-
-USER nextjs
-
+# Expose port
 EXPOSE 8080
 
+# Set environment variable for port
 ENV PORT=8080
 ENV HOSTNAME="0.0.0.0"
-ENV DATABASE_URL="file:./prisma/dev.db"
 
+# Start the application
 CMD ["node", "server.js"]

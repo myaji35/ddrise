@@ -56,17 +56,17 @@ export default function ProductsPage() {
   return (
     <>
       <Header />
-      <main>
+      <main className="bg-slate-50">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <section className="py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-block px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full text-sm font-semibold mb-6">
+              <div className="inline-block px-4 py-2 bg-slate-900 text-white rounded-md text-sm font-semibold mb-6 shadow-sm">
                 <Package className="inline h-4 w-4 mr-2" />
                 {t('section_badge')}
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                <span className="gradient-text-triple">{t('section_title')}</span>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 text-slate-900">
+                {t('section_title')}
               </h1>
               <p className="text-xl text-slate-600 mb-8">
                 {t('section_subtitle')}
@@ -76,7 +76,7 @@ export default function ProductsPage() {
         </section>
 
         {/* Product Categories */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {categories.map((category, index) => {
@@ -84,31 +84,31 @@ export default function ProductsPage() {
                 return (
                   <div
                     key={index}
-                    className="group bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+                    className="group bg-white rounded-lg border border-slate-200 p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                   >
-                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+                    <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm`}>
                       <Icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 text-slate-800">
+                    <h3 className="text-2xl font-bold mb-4 text-slate-900">
                       {category.title}
                     </h3>
-                    <p className="text-slate-600 mb-6 leading-relaxed">
+                    <p className="text-slate-600 mb-6 leading-relaxed text-sm">
                       {category.description}
                     </p>
                     <ul className="space-y-3 mb-6">
                       {category.items.map((item, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm text-slate-700">
-                          <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                          <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                     <Button
-                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+                      className="w-full bg-slate-900 hover:bg-slate-800 text-white"
                       asChild
                     >
                       <Link href={category.link}>
-                        자세히 보기
+                        {t('view_details')}
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
@@ -120,57 +120,57 @@ export default function ProductsPage() {
         </section>
 
         {/* Featured Products */}
-        <section className="py-16 bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white">
+        <section className="py-16 bg-slate-900 text-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                추천 제품
+                {t('featured_title')}
               </h2>
-              <p className="text-xl text-indigo-200">
-                가장 인기 있는 제품을 확인하세요
+              <p className="text-xl text-slate-400">
+                {t('featured_subtitle')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {/* 3M VHB Tape */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all">
-                <div className="aspect-square bg-white/5 rounded-xl mb-4 flex items-center justify-center">
-                  <Package className="h-16 w-16 text-indigo-300" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 hover:bg-white/10 transition-all">
+                <div className="aspect-square bg-white/5 rounded-lg mb-4 flex items-center justify-center">
+                  <Package className="h-16 w-16 text-slate-300" />
                 </div>
-                <h4 className="text-xl font-bold mb-2">3M VHB 구조용 테이프</h4>
-                <p className="text-sm text-indigo-200 mb-4">
-                  강력한 접착력으로 다양한 재질을 영구적으로 접착
+                <h4 className="text-xl font-bold mb-2">{t('product_3m_vhb_title')}</h4>
+                <p className="text-sm text-slate-400 mb-4">
+                  {t('product_3m_vhb_desc')}
                 </p>
-                <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10" asChild>
-                  <Link href="/products/3m">상세 보기</Link>
+                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10" asChild>
+                  <Link href="/products/3m">{t('view_product')}</Link>
                 </Button>
               </div>
 
               {/* EXACT PipeCut */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all">
-                <div className="aspect-square bg-white/5 rounded-xl mb-4 flex items-center justify-center">
-                  <Wrench className="h-16 w-16 text-orange-300" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 hover:bg-white/10 transition-all">
+                <div className="aspect-square bg-white/5 rounded-lg mb-4 flex items-center justify-center">
+                  <Wrench className="h-16 w-16 text-slate-300" />
                 </div>
-                <h4 className="text-xl font-bold mb-2">EXACT PipeCut 360 Pro</h4>
-                <p className="text-sm text-indigo-200 mb-4">
-                  프로페셔널 파이프 커팅을 위한 최고급 장비
+                <h4 className="text-xl font-bold mb-2">{t('product_exact_title')}</h4>
+                <p className="text-sm text-slate-400 mb-4">
+                  {t('product_exact_desc')}
                 </p>
-                <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10" asChild>
-                  <Link href="/products/exact">상세 보기</Link>
+                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10" asChild>
+                  <Link href="/products/exact">{t('view_product')}</Link>
                 </Button>
               </div>
 
               {/* AI Quote System */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all">
-                <div className="aspect-square bg-white/5 rounded-xl mb-4 flex items-center justify-center">
-                  <Zap className="h-16 w-16 text-yellow-300" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-white/10 hover:bg-white/10 transition-all">
+                <div className="aspect-square bg-white/5 rounded-lg mb-4 flex items-center justify-center">
+                  <Zap className="h-16 w-16 text-slate-300" />
                 </div>
-                <h4 className="text-xl font-bold mb-2">AI 견적 시스템</h4>
-                <p className="text-sm text-indigo-200 mb-4">
-                  3초 안에 최적의 제품과 가격을 확인하세요
+                <h4 className="text-xl font-bold mb-2">{t('product_ai_title')}</h4>
+                <p className="text-sm text-slate-400 mb-4">
+                  {t('product_ai_desc')}
                 </p>
-                <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10" asChild>
-                  <Link href="/contact">견적 요청</Link>
+                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10" asChild>
+                  <Link href="/contact">{t('request_quote')}</Link>
                 </Button>
               </div>
             </div>
@@ -178,24 +178,24 @@ export default function ProductsPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl p-12 text-white">
+            <div className="max-w-4xl mx-auto text-center bg-slate-900 rounded-lg p-12 text-white shadow-lg border border-slate-800">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                제품이 필요하신가요?
+                {t('cta_title')}
               </h2>
-              <p className="text-xl mb-8 text-indigo-100">
-                AI가 최적의 제품과 가격을 3초 안에 제시해드립니다
+              <p className="text-xl mb-8 text-slate-300">
+                {t('cta_subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   size="lg"
-                  className="bg-white text-indigo-600 hover:bg-indigo-50 min-w-[200px]"
+                  className="bg-white text-slate-900 hover:bg-slate-100 min-w-[200px]"
                   asChild
                 >
                   <Link href="/contact">
                     <Zap className="mr-2 h-5 w-5" />
-                    AI 견적 요청
+                    {t('cta_ai_quote')}
                   </Link>
                 </Button>
                 <Button
@@ -205,7 +205,7 @@ export default function ProductsPage() {
                   asChild
                 >
                   <Link href="/admin/products">
-                    제품 관리
+                    {t('cta_admin')}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
