@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight, Check, Download, Play } from 'lucide-react';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     productId: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -18,7 +18,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const product = exactProducts.find((p) => p.id === params.productId);
+  const { productId } = await params;
+  const product = exactProducts.find((p) => p.id === productId);
 
   if (!product) {
     return {
@@ -32,8 +33,9 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function ProductDetailPage({ params }: PageProps) {
-  const product = exactProducts.find((p) => p.id === params.productId);
+export default async function ProductDetailPage({ params }: PageProps) {
+  const { productId } = await params;
+  const product = exactProducts.find((p) => p.id === productId);
 
   if (!product) {
     notFound();
